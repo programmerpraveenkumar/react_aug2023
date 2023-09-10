@@ -61,7 +61,7 @@ export default function Contact(){
                 <input type="text" class="form-control" ref={message} id="inputMessage" placeholder="Message"/>
               </div>
               <div class="d-flex justify-content-center">
-                <button onClick={()=>validate()} type="submit" class="btn btn-primary">Send</button>
+                <button onClick={()=>validate()}  class="btn btn-primary">Send</button>
               </div>
             
           </div>
