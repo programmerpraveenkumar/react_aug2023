@@ -1,5 +1,40 @@
+import Footer from "./Footer";
 import Header from "./Header";
+import {  useEffect, useState } from "react";
 export default function Home(){
+  let carList = [
+    {"name":"car1","price":200},
+    {"name":"car2","price":300},
+    {"name":"car3","price":400},
+    {"name":"car4","price":500},
+    {"name":"car5","price":600}
+    ]
+    //state variable to store the useList from api response.
+    const[userList,setUserList]=useState([]);
+    
+    //React hook
+    //useRef,useState,useEffect
+    
+    /*useEffect will call during the page loads.
+    1st param should be arrow function,
+    2nd params shoud be empty array for avoiding mulitple calls 
+    */
+    useEffect(()=>{
+      getUserListApi();
+    },[])
+
+    //get user list from api and  show in the page.
+    const getUserListApi= async()=>{
+      let serverResponse = await fetch(
+        "https://reqres.in/api/users?page=2",
+      {
+        method:"GET"
+      }
+    );
+      let userList = await serverResponse.json();
+      setUserList(userList['data']);
+    }
+    
     return(
     <>
         <Header/>
@@ -223,66 +258,27 @@ export default function Home(){
   <section class="rent_section layout_padding">
     <div class="container">
       <div class="rent_container">
-        <div class="box">
-          <div class="img-box">
-            <img src="images/r-1.png" alt=""/>
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/r-2.png" alt=""/>
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/r-3.png" alt=""/>
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/r-4.png" alt=""/>
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/r-5.png" alt=""/>
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/r-6.png" alt=""/>
-          </div>
-          <div class="price">
-            <a href="">
-              Rent $200
-            </a>
-          </div>
-        </div>
+        {
+          carList.map((obj,index)=>{
+            return (
+              <div class="box">
+              <div class="img-box">
+                <img src="images/r-1.png" alt=""/>
+              </div>
+              <div class="price">
+                <a href="">
+                  {obj.name} -- Rent ${obj.price}
+                </a>
+              </div>
+            </div>
+            )
+          })
+        }
+       
+       
+        
+       
+      
       </div>
       <div class="btn-box">
         <a href="">
@@ -369,105 +365,31 @@ export default function Home(){
         <h2>
           What Is say Customer
         </h2>
-        <p>
-          It is a long established fact that a reader will be distracted by the
-        </p>
+       
       </div>
       <div class="layout_padding2-top">
         <div class="carousel-wrap ">
           <div class="owl-carousel">
-            <div class="item">
+
+            { userList.map((obj,index)=>{      
+            return <div class="item">
               <div class="box">
-                <div class="detail-box">
-                  <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem
-                  </p>
-                </div>
                 <div class="client_id">
                   <div class="img-box">
-                    <img src="images/client-1.png" alt="" class="img-1"/>
-                    <img src="images/client-1-white.png" alt="" class="img-2"/>
+                    <img src={obj.avatar} style={{"width":"100px"}}/>
                   </div>
                   <div class="name">
                     <h6>
-                      Established
+                      {obj.first_name}
                     </h6>
-                    <p>
-                      by the readable
-                    </p>
+                   
                   </div>
                 </div>
               </div>
             </div>
-            <div class="item">
-              <div class="box">
-                <div class="detail-box">
-                  <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem
-                  </p>
-                </div>
-                <div class="client_id">
-                  <div class="img-box">
-                    <img src="images/client-2.png" alt="" class="img-1"/>
-                    <img src="images/client-2-white.png" alt="" class="img-2"/>
-                  </div>
-                  <div class="name">
-                    <h6>
-                      Blished
-                    </h6>
-                    <p>
-                      by the readable
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="box">
-                <div class="detail-box">
-                  <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem
-                  </p>
-                </div>
-                <div class="client_id">
-                  <div class="img-box">
-                    <img src="images/client-1.png" alt="" class="img-1"/>
-                    <img src="images/client-1-white.png" alt="" class="img-2"/>
-                  </div>
-                  <div class="name">
-                    <h6>
-                      Establi
-                    </h6>
-                    <p>
-                      by the readable
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="box">
-                <div class="detail-box">
-                  <p>
-                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem
-                  </p>
-                </div>
-                <div class="client_id">
-                  <div class="img-box">
-                    <img src="images/client-1.png" alt="" class="img-1"/>
-                    <img src="images/client-1-white.png" alt="" class="img-2"/>
-                  </div>
-                  <div class="name">
-                    <h6>
-                      Establi
-                    </h6>
-                    <p>
-                      by the readable
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+          }) }
+
           </div>
         </div>
       </div>
@@ -572,10 +494,11 @@ export default function Home(){
    
     <div class="map_container">
       <div class="map-responsive">
-        <iframe style={{"width":"100%"}} src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France" height="300" frameborder="0" allowfullscreen></iframe>
+        <iframe style={{"width":"100%"}} src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France" height="300"  frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
   </section>
+  <Footer/>
        
     </>
     )
